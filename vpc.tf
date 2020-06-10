@@ -1,18 +1,19 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "2.21.0"
 
   name = "Gaurav"
-  cidr = "10.0.0.0/16"
+  cidr = var.vpc_cidr
 
-  azs             = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  azs             = var.vpc_azs
+  private_subnets = var.vpc_private_subnets
+  public_subnets  = var.vpc_public_subnets
 
-  enable_nat_gateway = true
-  enable_vpn_gateway = true
+  enable_nat_gateway = var.vpc_enable_nat_gateway
 
-  tags = {
-    Terraform = "true"
-    Environment = "dev"
-  }
+  tags = var.vpc_tags
 }
