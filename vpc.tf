@@ -1,8 +1,7 @@
-resource "aws_vpc" "Gaurav" {
-  cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "dedicated"
+module "custom_vpc {
+    source = "./vpc"
 
-  tags = {
-    Name = "Gaurav"
-  }
-}
+    vpc_region = var.region
+    vpc_name = "Gaurav"
+    vpc_cidr_block = "${var.vpc_cidr_block}"
+}"
